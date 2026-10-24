@@ -7,60 +7,60 @@ import java.util.Scanner;
 public class CustomerQueue {
 
     // INPUT
-    static Scanner input = new Scanner(System.in);
+    static Scanner Input = new Scanner(System.in);
 
     // CUSTOMER RECORDS
-    static ArrayList<Integer> ticketNumbers = new ArrayList<>();
-    static ArrayList<String> customerNames = new ArrayList<>();
+    static ArrayList<Integer> TicketNumbers = new ArrayList<>();
+    static ArrayList<String> CustomerNames = new ArrayList<>();
 
     // WAITING QUEUE
-    static Queue<Integer> waitingQueue = new LinkedList<>();
+    static Queue<Integer> WaitingQueue = new LinkedList<>();
 
     // SYSTEM VARIABLES
-    static int nextTicketNumber = 1;
-    static int choice = 0;
-    static boolean isRunning = true;
+    static int NextTicketNumber = 1;
+    static int Choice = 0;
+    static boolean IsRunning = true;
 
     public static void main(String[] args) {
 
-        while (isRunning) {
+        while (IsRunning) {
 
-            displayMenu();
+            DisplayMenu();
 
-            choice = getMenuChoice();
+            Choice = GetMenuChoice();
 
-            if (choice == 1) {
-                issueTicket();
+            if (Choice == 1) {
+                IssueTicket();
 
-            } else if (choice == 2) {
-                viewQueue();
+            } else if (Choice == 2) {
+                ViewQueue();
 
-            } else if (choice == 3) {
-                serveNextCustomer();
+            } else if (Choice == 3) {
+                ServeNextCustomer();
 
-            } else if (choice == 4) {
-                viewNextCustomer();
+            } else if (Choice == 4) {
+                ViewNextCustomer();
 
-            } else if (choice == 5) {
-                searchCustomer();
+            } else if (Choice == 5) {
+                SearchCustomer();
 
-            } else if (choice == 6) {
-                sortCustomersByName();
+            } else if (Choice == 6) {
+                SortCustomersByName();
 
-            } else if (choice == 7) {
+            } else if (Choice == 7) {
                 System.out.println("Thank you for using the system.");
-                isRunning = false;
+                IsRunning = false;
 
             } else {
                 System.out.println("Invalid choice. Please select 1-7.");
             }
         }
 
-        input.close();
+        Input.close();
     }
 
     // METHOD 1: DISPLAY MENU
-    public static void displayMenu() {
+    public static void DisplayMenu() {
 
         System.out.println("\n================================");
         System.out.println("    CUSTOMER SERVICE QUEUE");
@@ -77,146 +77,146 @@ public class CustomerQueue {
     }
 
     // METHOD 2: GET AND VALIDATE MENU INPUT
-    public static int getMenuChoice() {
+    public static int GetMenuChoice() {
 
-        int menuChoice = 0;
+        int MenuChoice = 0;
 
         try {
-            menuChoice = Integer.parseInt(input.nextLine());
+            MenuChoice = Integer.parseInt(Input.nextLine());
 
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
             return 0;
         }
 
-        return menuChoice;
+        return MenuChoice;
     }
 
     // METHOD 3: ISSUE A TICKET
-    public static void issueTicket() {
+    public static void IssueTicket() {
 
         System.out.println("\n--- GET A TICKET ---");
         System.out.print("Enter customer name: ");
 
-        String customerName = input.nextLine().trim();
+        String CustomerName = Input.nextLine().trim();
 
-        if (customerName.isEmpty()) {
+        if (CustomerName.isEmpty()) {
             System.out.println("Customer name cannot be empty.");
             return;
         }
 
-        int newTicketNumber = nextTicketNumber;
+        int NewTicketNumber = NextTicketNumber;
 
-        ticketNumbers.add(newTicketNumber);
-        customerNames.add(customerName);
-        waitingQueue.add(newTicketNumber);
+        TicketNumbers.add(NewTicketNumber);
+        CustomerNames.add(CustomerName);
+        WaitingQueue.add(NewTicketNumber);
 
         System.out.println("\nTicket issued successfully!");
-        System.out.println("Customer Name: " + customerName);
-        System.out.printf("Ticket Number: T-%03d%n", newTicketNumber);
-        System.out.println("Position in Queue: " + waitingQueue.size());
+        System.out.println("Customer Name: " + CustomerName);
+        System.out.printf("Ticket Number: T-%03d%n", NewTicketNumber);
+        System.out.println("Position in Queue: " + WaitingQueue.size());
 
-        nextTicketNumber++;
+        NextTicketNumber++;
     }
 
     // METHOD 4: VIEW WAITING QUEUE
-    public static void viewQueue() {
+    public static void ViewQueue() {
 
         System.out.println("\n--- WAITING QUEUE ---");
 
-        if (waitingQueue.isEmpty()) {
+        if (WaitingQueue.isEmpty()) {
             System.out.println("No customers are waiting.");
             return;
         }
 
-        int position = 1;
+        int Position = 1;
 
         System.out.println("Position | Ticket | Customer");
         System.out.println("----------------------------");
 
-        for (int ticketNumber : waitingQueue) {
+        for (int TicketNumber : WaitingQueue) {
 
-            int customerIndex = ticketNumbers.indexOf(ticketNumber);
+            int CustomerIndex = TicketNumbers.indexOf(TicketNumber);
 
             System.out.printf(
                 "%-8d | T-%03d | %s%n",
-                position,
-                ticketNumber,
-                customerNames.get(customerIndex)
+                Position,
+                TicketNumber,
+                CustomerNames.get(CustomerIndex)
             );
 
-            position++;
+            Position++;
         }
 
         System.out.println("----------------------------");
-        System.out.println("Total Waiting: " + waitingQueue.size());
+        System.out.println("Total Waiting: " + WaitingQueue.size());
     }
 
     // METHOD 5: SERVE NEXT CUSTOMER
-    public static void serveNextCustomer() {
+    public static void ServeNextCustomer() {
 
         System.out.println("\n--- SERVE NEXT CUSTOMER ---");
 
-        if (waitingQueue.isEmpty()) {
+        if (WaitingQueue.isEmpty()) {
             System.out.println("No customers are waiting to be served.");
             return;
         }
 
-        int servedTicketNumber = waitingQueue.poll();
+        int ServedTicketNumber = WaitingQueue.poll();
 
-        int customerIndex = ticketNumbers.indexOf(servedTicketNumber);
+        int CustomerIndex = TicketNumbers.indexOf(ServedTicketNumber);
 
         System.out.println("Customer is now being served.");
-        System.out.printf("Ticket Number: T-%03d%n", servedTicketNumber);
-        System.out.println("Customer Name: " + customerNames.get(customerIndex));
-        System.out.println("Remaining Customers: " + waitingQueue.size());
+        System.out.printf("Ticket Number: T-%03d%n", ServedTicketNumber);
+        System.out.println("Customer Name: " + CustomerNames.get(CustomerIndex));
+        System.out.println("Remaining Customers: " + WaitingQueue.size());
     }
 
     // METHOD 6: VIEW NEXT CUSTOMER WITHOUT REMOVING
-    public static void viewNextCustomer() {
+    public static void ViewNextCustomer() {
 
         System.out.println("\n--- NEXT CUSTOMER ---");
 
-        if (waitingQueue.isEmpty()) {
+        if (WaitingQueue.isEmpty()) {
             System.out.println("No customers are waiting.");
             return;
         }
 
-        int nextTicket = waitingQueue.peek();
+        int NextTicket = WaitingQueue.peek();
 
-        int customerIndex = ticketNumbers.indexOf(nextTicket);
+        int CustomerIndex = TicketNumbers.indexOf(NextTicket);
 
-        System.out.printf("Ticket Number: T-%03d%n", nextTicket);
-        System.out.println("Customer Name: " + customerNames.get(customerIndex));
+        System.out.printf("Ticket Number: T-%03d%n", NextTicket);
+        System.out.println("Customer Name: " + CustomerNames.get(CustomerIndex));
     }
 
     // METHOD 7: SEARCH CUSTOMER BY TICKET NUMBER
-    public static void searchCustomer() {
+    public static void SearchCustomer() {
 
         System.out.println("\n--- SEARCH CUSTOMER ---");
         System.out.print("Enter ticket number: ");
 
-        int searchedTicket;
+        int SearchedTicket;
 
         try {
-            searchedTicket = Integer.parseInt(input.nextLine());
+            SearchedTicket = Integer.parseInt(Input.nextLine());
 
         } catch (NumberFormatException e) {
             System.out.println("Invalid ticket number. Enter digits only.");
             return;
         }
 
-        int customerIndex = ticketNumbers.indexOf(searchedTicket);
+        int CustomerIndex = TicketNumbers.indexOf(SearchedTicket);
 
-        if (customerIndex == -1) {
+        if (CustomerIndex == -1) {
             System.out.println("Ticket number not found.");
             return;
         }
 
-        System.out.printf("Ticket Number: T-%03d%n", searchedTicket);
-        System.out.println("Customer Name: " + customerNames.get(customerIndex));
+        System.out.printf("Ticket Number: T-%03d%n", SearchedTicket);
+        System.out.println("Customer Name: " + CustomerNames.get(CustomerIndex));
 
-        if (waitingQueue.contains(searchedTicket)) {
+        if (WaitingQueue.contains(SearchedTicket)) {
             System.out.println("Status: Waiting");
         } else {
             System.out.println("Status: Already served");
@@ -224,44 +224,44 @@ public class CustomerQueue {
     }
 
     // METHOD 8: SORT CUSTOMERS ALPHABETICALLY
-    public static void sortCustomersByName() {
+    public static void SortCustomersByName() {
 
         System.out.println("\n--- SORT CUSTOMERS BY NAME ---");
 
-        if (waitingQueue.isEmpty()) {
+        if (WaitingQueue.isEmpty()) {
             System.out.println("No customers are waiting to be sorted.");
             return;
         }
 
         // COPY WAITING TICKETS INTO A SEPARATE LIST
-        ArrayList<Integer> sortedTicketNumbers = new ArrayList<>();
+        ArrayList<Integer> SortedTicketNumbers = new ArrayList<>();
 
-        for (int ticketNumber : waitingQueue) {
-            sortedTicketNumbers.add(ticketNumber);
+        for (int TicketNumber : WaitingQueue) {
+            SortedTicketNumbers.add(TicketNumber);
         }
 
         // BUBBLE SORT
-        for (int i = 0; i < sortedTicketNumbers.size() - 1; i++) {
+        for (int i = 0; i < SortedTicketNumbers.size() - 1; i++) {
 
-            for (int j = 0; j < sortedTicketNumbers.size() - 1 - i; j++) {
+            for (int j = 0; j < SortedTicketNumbers.size() - 1 - i; j++) {
 
-                int firstTicket = sortedTicketNumbers.get(j);
-                int secondTicket = sortedTicketNumbers.get(j + 1);
+                int FirstTicket = SortedTicketNumbers.get(j);
+                int SecondTicket = SortedTicketNumbers.get(j + 1);
 
-                int firstCustomerIndex = ticketNumbers.indexOf(firstTicket);
-                int secondCustomerIndex = ticketNumbers.indexOf(secondTicket);
+                int FirstCustomerIndex = TicketNumbers.indexOf(FirstTicket);
+                int SecondCustomerIndex = TicketNumbers.indexOf(SecondTicket);
 
-                String firstCustomerName =
-                    customerNames.get(firstCustomerIndex);
+                String FirstCustomerName =
+                    CustomerNames.get(FirstCustomerIndex);
 
-                String secondCustomerName =
-                    customerNames.get(secondCustomerIndex);
+                String SecondCustomerName =
+                    CustomerNames.get(SecondCustomerIndex);
 
-                if (firstCustomerName.compareToIgnoreCase(
-                        secondCustomerName) > 0) {
+                if (FirstCustomerName.compareToIgnoreCase(
+                        SecondCustomerName) > 0) {
 
-                    sortedTicketNumbers.set(j, secondTicket);
-                    sortedTicketNumbers.set(j + 1, firstTicket);
+                    SortedTicketNumbers.set(j, SecondTicket);
+                    SortedTicketNumbers.set(j + 1, FirstTicket);
                 }
             }
         }
@@ -271,14 +271,14 @@ public class CustomerQueue {
         System.out.println("Ticket | Customer");
         System.out.println("----------------");
 
-        for (int ticketNumber : sortedTicketNumbers) {
+        for (int TicketNumber : SortedTicketNumbers) {
 
-            int customerIndex = ticketNumbers.indexOf(ticketNumber);
+            int CustomerIndex = TicketNumbers.indexOf(TicketNumber);
 
             System.out.printf(
                 "T-%03d  | %s%n",
-                ticketNumber,
-                customerNames.get(customerIndex)
+                TicketNumber,
+                CustomerNames.get(CustomerIndex)
             );
         }
     }
