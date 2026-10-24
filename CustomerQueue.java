@@ -1,4 +1,4 @@
-
+// Pascual
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,19 +31,28 @@ public class CustomerQueue {
 
             if (choice == 1) {
                 issueTicket();
+
             } else if (choice == 2) {
                 viewQueue();
+
             } else if (choice == 3) {
                 serveNextCustomer();
+
             } else if (choice == 4) {
                 viewNextCustomer();
+
             } else if (choice == 5) {
                 searchCustomer();
+
             } else if (choice == 6) {
+                sortCustomersByName();
+
+            } else if (choice == 7) {
                 System.out.println("Thank you for using the system.");
                 isRunning = false;
+
             } else {
-                System.out.println("Invalid choice. Please select 1-6.");
+                System.out.println("Invalid choice. Please select 1-7.");
             }
         }
 
@@ -61,7 +70,8 @@ public class CustomerQueue {
         System.out.println("3. Serve Next Customer");
         System.out.println("4. View Next Customer");
         System.out.println("5. Search Customer by Ticket");
-        System.out.println("6. Exit");
+        System.out.println("6. Sort Customers by Name");
+        System.out.println("7. Exit");
         System.out.println("================================");
         System.out.print("Enter your choice: ");
     }
@@ -73,6 +83,7 @@ public class CustomerQueue {
 
         try {
             menuChoice = Integer.parseInt(input.nextLine());
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
             return 0;
@@ -189,6 +200,7 @@ public class CustomerQueue {
 
         try {
             searchedTicket = Integer.parseInt(input.nextLine());
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid ticket number. Enter digits only.");
             return;
@@ -208,6 +220,66 @@ public class CustomerQueue {
             System.out.println("Status: Waiting");
         } else {
             System.out.println("Status: Already served");
+        }
+    }
+
+    // METHOD 8: SORT CUSTOMERS ALPHABETICALLY
+    public static void sortCustomersByName() {
+
+        System.out.println("\n--- SORT CUSTOMERS BY NAME ---");
+
+        if (waitingQueue.isEmpty()) {
+            System.out.println("No customers are waiting to be sorted.");
+            return;
+        }
+
+        // COPY WAITING TICKETS INTO A SEPARATE LIST
+        ArrayList<Integer> sortedTicketNumbers = new ArrayList<>();
+
+        for (int ticketNumber : waitingQueue) {
+            sortedTicketNumbers.add(ticketNumber);
+        }
+
+        // BUBBLE SORT
+        for (int i = 0; i < sortedTicketNumbers.size() - 1; i++) {
+
+            for (int j = 0; j < sortedTicketNumbers.size() - 1 - i; j++) {
+
+                int firstTicket = sortedTicketNumbers.get(j);
+                int secondTicket = sortedTicketNumbers.get(j + 1);
+
+                int firstCustomerIndex = ticketNumbers.indexOf(firstTicket);
+                int secondCustomerIndex = ticketNumbers.indexOf(secondTicket);
+
+                String firstCustomerName =
+                    customerNames.get(firstCustomerIndex);
+
+                String secondCustomerName =
+                    customerNames.get(secondCustomerIndex);
+
+                if (firstCustomerName.compareToIgnoreCase(
+                        secondCustomerName) > 0) {
+
+                    sortedTicketNumbers.set(j, secondTicket);
+                    sortedTicketNumbers.set(j + 1, firstTicket);
+                }
+            }
+        }
+
+        // DISPLAY SORTED CUSTOMERS
+        System.out.println("Customers sorted alphabetically:");
+        System.out.println("Ticket | Customer");
+        System.out.println("----------------");
+
+        for (int ticketNumber : sortedTicketNumbers) {
+
+            int customerIndex = ticketNumbers.indexOf(ticketNumber);
+
+            System.out.printf(
+                "T-%03d  | %s%n",
+                ticketNumber,
+                customerNames.get(customerIndex)
+            );
         }
     }
 }
