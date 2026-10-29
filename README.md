@@ -66,7 +66,7 @@ java CustomerQueue
 
 ## Sorting Method
 
-The system uses **Bubble Sort** to arrange waiting customers alphabetically by name. It creates a separate list of ticket numbers for sorting, so the original waiting queue remains unchanged.
+The system uses **Bubble/Insert Sort** to arrange waiting customers alphabetically by name. It creates a separate list of ticket numbers for sorting, so the original waiting queue remains unchanged.
 
 Sorting only changes the order in which customers are displayed in the sorted results. It does not change the order in which customers will be served.
 
@@ -87,7 +87,7 @@ Customer ticket numbers and names are stored in separate `ArrayList` collections
 This project demonstrates basic Java programming concepts, including variables, conditional statements, loops, methods, exception handling, collections, searching, sorting, and queue operations.
 
 ## System's Screenshots
-**Menu** <img width="410" height="283" alt="image" src="https://github.com/user-attachments/assets/7a7cf5ae-50ef-4b0d-92dd-5f6b1791572e" />
+**Menu** <img width="297" height="248" alt="image" src="https://github.com/user-attachments/assets/6b3bcf75-e5ef-4d93-bf3a-883084143e55" />
 
 **Creating Ticket** <img width="357" height="187" alt="image" src="https://github.com/user-attachments/assets/4b8bdc2f-5a1f-40f7-84d1-45fc422dc442" />
 
@@ -97,7 +97,9 @@ This project demonstrates basic Java programming concepts, including variables, 
 
 **View Next Customer** <img width="305" height="98" alt="image" src="https://github.com/user-attachments/assets/66b49f9b-736e-4f6c-bef6-adb260077399" />
 
-**Sort Customer by Name** <img width="396" height="197" alt="image" src="https://github.com/user-attachments/assets/54e8f16c-b422-4edb-b22e-ff7f5878fc4d" />
+**Bubble Sort(Oldest First)** <img width="363" height="202" alt="image" src="https://github.com/user-attachments/assets/ada2acf8-e5f6-4abf-9f4e-2669c8e58ea0" />
+
+**Insert Sort(New First)** <img width="281" height="153" alt="image" src="https://github.com/user-attachments/assets/6c51d920-9003-43af-b026-5b7a5da4b3a2" />
 
 
 
